@@ -11,10 +11,10 @@
 
 ```bash
 $ cd <repository_dir>
-$ wget -O - <link> | bash
+$ wget -O - https://raw.githubusercontent.com/Davert94/install-hook/master/install-hook.sh | bash
 ```
-или
+или через короткую ссылку
 ```bash
 $ cd <repository_dir>
-$ wget -O - <short_link> | bash
+$ wget -O - https://bit.ly/2QIDejh | bash
 ```
