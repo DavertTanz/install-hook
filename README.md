@@ -13,8 +13,3 @@
 $ cd <repository_dir>
 $ wget -O - https://raw.githubusercontent.com/Davert94/install-hook/master/install-hook.sh | bash
 ```
-или через короткую ссылку
-```bash
-$ cd <repository_dir>
-$ wget -O - https://bit.ly/2QIDejh | bash
-```
