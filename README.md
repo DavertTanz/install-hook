@@ -11,5 +11,8 @@
 
 ```bash
 $ cd <repository_dir>
-$ wget -O - https://raw.githubusercontent.com/Davert94/install-hook/master/install-hook.sh | bash
+$ wget -qO - https://raw.githubusercontent.com/Davert94/install-hook/master/install-hook.sh | bash
+
+// Или если wget не установлен в системе
+$ curl -s https://raw.githubusercontent.com/Davert94/install-hook/master/install-hook.sh | bash
 ```
