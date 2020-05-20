@@ -5,19 +5,33 @@ URL_TO_HOOK="https://raw.githubusercontent.com/Davert94/prepare-commit-msg/maste
 DESTINATION_FILE=.git/hooks/prepare-commit-msg
 RESERVE_FILE="${DESTINATION_FILE}.reserve"
 
+HTTP_CLIENT=$(which wget 2>/dev/null)
+IS_CURL=0
+
+if [[ -z ${HTTP_CLIENT} ]];
+then
+    IS_CURL=1
+fi
+
 # Сохраним старый хук на всякий
 mv "${DESTINATION_FILE}" "${RESERVE_FILE}" 2>/dev/null
 
-wget "${URL_TO_HOOK}" -O "${DESTINATION_FILE}"
-WGET_RESULT=$?
-
-if [[ ${WGET_RESULT} -eq 0 ]];
+if [[ ${IS_CURL} -eq 1 ]];
 then
-	chmod +x "${DESTINATION_FILE}"
-
-	echo -e "\nHook \"${DESTINATION_FILE}\" successfully installed!"
+    curl -s "${URL_TO_HOOK}" -o "${DESTINATION_FILE}"
 else
-	mv "${RESERVE_FILE}" "${DESTINATION_FILE}" 2>/dev/null
+    wget -q "${URL_TO_HOOK}" -O "${DESTINATION_FILE}"
+fi
 
-	echo -e '\nERROR: installable file not found.\nPlease, write about it on email: davert-tanz@yandex.ru'
+REQUEST_RESULT=$?
+
+if [[ ${REQUEST_RESULT} -eq 0 ]];
+then
+    chmod +x "${DESTINATION_FILE}"
+
+    echo -e "Hook \"${DESTINATION_FILE}\" successfully installed!"
+else
+    mv "${RESERVE_FILE}" "${DESTINATION_FILE}" 2>/dev/null
+
+    echo -e 'ERROR: installable file not found.\nPlease, write about it on email: davert-tanz@yandex.ru'
 fi
